@@ -1,0 +1,19 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}Events{% endblock %}</title>
+</head>
+<body>
+    <a href="{% url 'eventsapp:home' %}">home</a> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+
+    {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name }},
+        <a href='{% url "eventsapp:logout" %}'>Logout</a>
+    {% else %}
+        <a href='{% url "eventsapp:login" %}'>Log-in</a> &emsp; <a href="{% url 'eventsapp:register' %}">register</a>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+        <h3>Events</h3>
+        {% for event in events %}
+                <a href="{{ event.get_absolute_url }}">{{ event.title }}</a>
+                {{ event.description|linebreaks }}
+                <p><strong>Vanue:</strong> &emsp; {{event.venue}} </p>
+        {% endfor %}
+{% endblock %}

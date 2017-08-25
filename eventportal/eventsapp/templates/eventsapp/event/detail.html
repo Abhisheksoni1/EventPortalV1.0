@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Detail
+{% endblock %}
+{% block content %}
+<div>
+    <br><br>
+    <a href="">{{ event.title }}</a>
+    {{ event.description|linebreaks }}
+    <p><strong>Date&emsp;</strong>{{ event.event_time.date}} &emsp;&emsp;
+        <strong>Time&emsp;</strong> {{event.event_time.time}}</p>
+    <p><strong>Vanue:</strong> &emsp; {{event.venue}} </p>
+    <p>
+        <strong>Event Fee&emsp;</strong> {{event.event_fee}}
+                {% if request.user.is_authenticated %}
+                    {% if user_going %}
+                        <p>Already Going</p>
+                    {% else %}
+                        <form>
+                            <button formaction="{% url 'eventsapp:attend' event.id %}">Attend</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <p><a href="{% url 'eventsapp:login' %}">please login to Buy Tickets</a></p>
+                {% endif %}
+    </p>
+</div>
+<h2><strong>Going Users</strong></h2>
+{% for tickets in all_tickets %}
+<p><strong>Name</strong> &emsp; {{ tickets.user.user.first_name }}&emsp;
+    <strong>Gender:</strong> &emsp; {{tickets.user.sex}}</p>
+{% endfor %}
+{% endblock %}
